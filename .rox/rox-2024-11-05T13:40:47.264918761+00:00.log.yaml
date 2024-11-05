@@ -1,9 +1,0 @@
-job_name: request
-execution_time: 2024-11-05T13:40:47.264918761+00:00
-results:
-- name: request
-  command: curl -X POST http://localhost:8080
-  stage: 1
-  result: Pass
-  elapsed_time: 0
-  file_path: roxfile.yml
