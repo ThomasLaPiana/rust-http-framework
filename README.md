@@ -1,2 +1,3 @@
-# rust-http-framework
-Experimentation Repo for building an HTTP server in Rust
+# Rust HTTP Server
+
+Educational implementation of an HTTP webserver in Rust
