@@ -1,0 +1,6 @@
+# Run 'cargo install rox-cli' and then run 'rox' to get started
+
+tasks:
+  - name: "wr"
+    description: "Run the application and restart on changes"
+    command: "watchexec -r 'cargo run'"
