@@ -11,19 +11,57 @@ use crate::configuration::Config;
 use crate::request::Request;
 use crate::response::Response;
 
-// Handle TCP Connections
-fn handle_connection(mut stream: TcpStream) {
-    let buf_reader = BufReader::new(&mut stream);
+// Get the Content Length from the request
+fn get_content_length(request: &Vec<String>) -> i16 {
+    let content_length_str = "Content-Length: ";
+    for line in request {
+        if line.starts_with(content_length_str) {
+            let content_length: &str = line.split(": ").collect::<Vec<_>>()[1];
+            return content_length.parse::<i16>().unwrap();
+        }
+    }
 
-    let http_request: Vec<String> = buf_reader
-        .lines()
-        .map(|result| result.unwrap())
-        .take_while(|line| !line.is_empty())
+    return 0;
+}
+// Read a full request from a stream
+fn read_stream(stream: &mut TcpStream) -> Vec<String> {
+    let mut reader = BufReader::new(stream.try_clone().unwrap());
+    let mut buffer = String::new();
+
+    loop {
+        let r = reader.read_line(&mut buffer).unwrap();
+        // Detect an empty line (\0 null byte)
+        if r < 3 {
+            break;
+        }
+    }
+    let lines: Vec<String> = buffer
+        .split("\n")
+        .map(|l| l.trim_end_matches("\r").to_string())
+        .collect();
+    println!("Lines: {:#?}", lines);
+
+    // Read the exact Content Length
+    let content_length = get_content_length(&lines);
+
+    let mut body_buffer = vec![0; content_length as usize];
+    reader.read_exact(&mut body_buffer).unwrap();
+    let body_lines: Vec<String> = String::from_utf8(body_buffer)
+        .unwrap()
+        .split("\n")
+        .map(|l| l.to_owned())
         .collect();
 
-    println!("Raw Request: {http_request:#?}");
-    let request = Request::new(http_request.clone());
-    println!("Parsed Request: {:#?}", request);
+    [lines.clone(), body_lines].concat()
+}
+
+// Handle TCP Connections
+fn handle_connection(mut stream: TcpStream) {
+    let raw_request = read_stream(&mut stream);
+    println!("Raw Request: {:#?}", raw_request);
+    // println!("Raw Request: {http_request:#?}");
+    // let request = Request::new(http_request.clone());
+    // println!("Parsed Request: {:#?}", request);
 
     let response = Response::new();
     stream.write_all(&response.as_bytes()).unwrap();
