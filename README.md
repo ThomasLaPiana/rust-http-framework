@@ -11,6 +11,12 @@ Educational implementation of an HTTP webserver in Rust
 * Reads from disk on startup
 * Writes to disk on each modification request
 
+## Glaring Omissions
+* Tests
+* Proper Error Handling (unwraps all around)
+* Multi-Threading
+* Graceful Shutdowns
+
 ## Server Logs
 
 ![image](https://github.com/user-attachments/assets/2208242e-1a4a-4e29-a366-c471e4ae83fc)
