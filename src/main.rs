@@ -1,4 +1,5 @@
 mod configuration;
+mod database;
 mod handlers;
 mod request;
 mod response;
@@ -9,14 +10,13 @@ use std::net::TcpListener;
 use std::net::TcpStream;
 
 use crate::configuration::Config;
+use crate::database::Database;
 use crate::request::Request;
 
 // Handle an incoming connection, including sending a response
-fn handle_connection(mut stream: TcpStream) {
+fn handle_connection(mut stream: TcpStream, database: &Database) {
     let request = Request::new(&mut stream);
-    println!("Parsed Request: {:#?}", request);
-
-    let response = handlers::handle_request(request);
+    let response = handlers::handle_request(request, database);
     stream.write_all(&response.as_bytes()).unwrap();
 }
 
@@ -25,11 +25,14 @@ fn main() {
     let config = Config::new(args);
     println!("(Host: '{}', Port: '{}')", config.host, config.port);
 
+    // Create a new database
+    let database = Database::new();
+
     println!("Starting server...");
     let listener = TcpListener::bind(config.addr()).unwrap();
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
-        handle_connection(stream);
+        handle_connection(stream, &database);
     }
 }
