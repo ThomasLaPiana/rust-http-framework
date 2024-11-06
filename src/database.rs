@@ -23,6 +23,7 @@ impl Database {
 
     // Read the database from disk
     fn from_file(&self) {
+        println!("(Reading database from file: '{}')", &self.path);
         if !std::path::Path::new(&self.path).exists() {
             std::fs::File::create(&self.path).expect("Failed to create database file!");
         }
