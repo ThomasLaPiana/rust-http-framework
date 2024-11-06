@@ -4,3 +4,11 @@ tasks:
   - name: "wr"
     description: "Run the application and restart on changes"
     command: "watchexec -r 'cargo run'"
+
+  - name: "db"
+    description: "Build the Docker image"
+    command: "docker build . -t rustserver"
+
+  - name: "dr"
+    description: "Run the Docker container"
+    command: "docker run --rm -p 8080:8080 rustserver"

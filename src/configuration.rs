@@ -9,7 +9,7 @@ pub struct Config {
 impl Config {
     pub fn new(args: Vec<String>) -> Config {
         // Set the default host & port
-        let host = "127.0.0.1".to_string();
+        let host = "0.0.0.0".to_string();
         let port = "8080".to_string();
 
         match args.len() {
