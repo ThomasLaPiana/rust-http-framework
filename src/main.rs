@@ -36,10 +36,7 @@ fn handle_connection(mut stream: TcpStream, database: &Database) {
 fn main() {
     let args: Vec<String> = env::args().collect();
     let config = Config::new(args);
-    println!(
-        "(Host: '{}', Port: '{}', Threads: '{}')",
-        config.host, config.port, config.threads
-    );
+    println!("(Host: '{}', Port: '{}'", config.host, config.port);
 
     // Create a new database
     let database = Database::new();
