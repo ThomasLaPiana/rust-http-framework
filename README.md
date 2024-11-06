@@ -2,7 +2,7 @@
 
 Educational implementation of an HTTP webserver in Rust
 
-## The webserver implements the following features
+## Webserver Features
 
 * Host & Port configurable via CLI arguments
 * Supports `GET`, `UPDATE` & `DELETE` HTTP methods
