@@ -21,6 +21,13 @@ impl RequestType {
     }
 }
 
+fn validate_protocol(protocol: &str) -> &str {
+    if protocol != "HTTP/1.1" {
+        panic!("Invalid Protocol");
+    }
+    protocol
+}
+
 // A representation of the first line of an HTTP Request
 #[derive(Debug)]
 pub struct RequestInfo {
@@ -36,7 +43,7 @@ impl RequestInfo {
             [method, path, protocol] => RequestInfo {
                 method: RequestType::from_string(method),
                 path: path.to_string(),
-                protocol: protocol.to_string(),
+                protocol: validate_protocol(protocol).to_string(),
             },
             _ => panic!("Invalid Request"),
         }
