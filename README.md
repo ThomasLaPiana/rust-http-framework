@@ -4,9 +4,17 @@ Educational implementation of an HTTP webserver in Rust
 
 ## The webserver implements the following features
 
-* Host & Port configurable via CLI arguments (DONE)
-* Supports `GET`, `UPDATE` & `DELETE` HTTP methods (DONE)
-* Basic Routing (DONE)
-* Has a simple in-memory DB (DONE)
-* Reads from disk on startup (DONE)
-* Writes to disk on each modification request (DONE)
+* Host & Port configurable via CLI arguments
+* Supports `GET`, `UPDATE` & `DELETE` HTTP methods
+* Basic Routing
+* Has a simple in-memory DB
+* Reads from disk on startup
+* Writes to disk on each modification request
+
+## Server Logs
+
+![image](https://github.com/user-attachments/assets/2208242e-1a4a-4e29-a366-c471e4ae83fc)
+
+## Client Logs
+
+![image](https://github.com/user-attachments/assets/a3480fd0-9e7b-41f3-9cc1-c34d4860d5d4)
