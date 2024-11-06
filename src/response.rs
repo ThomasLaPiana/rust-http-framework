@@ -20,7 +20,7 @@ impl Response {
 
     pub fn as_bytes(&self) -> Vec<u8> {
         format!(
-            "{} {} {}\r\n\r\n{}",
+            "{} {} {}\r\ncontent-type: text/plain\r\n\r\n{}",
             self.version, self.status_code, self.status_text, self.body
         )
         .into_bytes()
