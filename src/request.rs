@@ -4,18 +4,18 @@ use std::net::TcpStream;
 
 #[derive(Debug)]
 pub enum RequestType {
-    GET,
-    POST,
-    DELETE,
+    Get,
+    Post,
+    Delete,
 }
 
 impl RequestType {
     // Convert a string to a RequestType
     fn from_string(method: &str) -> RequestType {
         match method {
-            "GET" => RequestType::GET,
-            "POST" => RequestType::POST,
-            "DELETE" => RequestType::DELETE,
+            "GET" => RequestType::Get,
+            "POST" => RequestType::Post,
+            "DELETE" => RequestType::Delete,
             _ => panic!("Invalid Request Type"),
         }
     }
@@ -33,6 +33,7 @@ fn validate_protocol(protocol: &str) -> &str {
 pub struct RequestInfo {
     pub method: RequestType,
     pub path: String,
+    #[allow(dead_code)]
     pub protocol: String,
 }
 
@@ -53,6 +54,7 @@ impl RequestInfo {
 #[derive(Debug)]
 pub struct Request {
     pub info: RequestInfo,
+    #[allow(dead_code)]
     pub headers: Vec<String>,
     pub body: String,
 }
@@ -68,7 +70,7 @@ impl Request {
             }
         }
 
-        return 0;
+        0
     }
 
     // Parse the metadata and headers for the request
@@ -90,7 +92,7 @@ impl Request {
 
         let info = RequestInfo::new(&lines[0].clone());
         let headers = lines[1..].to_vec();
-        return (info, headers);
+        (info, headers)
     }
 
     // Read a full request from a stream
@@ -108,8 +110,8 @@ impl Request {
             .collect();
 
         Request {
-            info: info,
-            headers: headers,
+            info,
+            headers,
             body: body_lines.join("\n"),
         }
     }

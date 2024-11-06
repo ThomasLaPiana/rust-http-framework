@@ -6,7 +6,7 @@ use crate::response::Response;
 // Dispatch the request to the correct handler
 pub fn handle_request(request: Request, database: &Database) -> Response {
     match request.info.method {
-        RequestType::GET => {
+        RequestType::Get => {
             let mut response = Response::new();
             match database.get(&request.info.path) {
                 Some(value) => {
@@ -20,14 +20,14 @@ pub fn handle_request(request: Request, database: &Database) -> Response {
                 }
             }
         }
-        RequestType::POST => {
+        RequestType::Post => {
             let mut response = Response::new();
             database.set(request.info.path.clone(), request.body.clone());
             response.status_code = 201;
             response.body = request.body.clone();
             response
         }
-        RequestType::DELETE => {
+        RequestType::Delete => {
             let mut response = Response::new();
             database.delete(&request.info.path);
             response.status_code = 204;

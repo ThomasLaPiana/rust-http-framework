@@ -15,23 +15,23 @@ impl Config {
         match args.len() {
             1 => {
                 println!("> No arguments provided, using default values");
-                return Config {
-                    host: host,
-                    port: port,
-                };
+                Config {
+                    host,
+                    port,
+                }
             }
             2 => {
                 println!("> No Port provided, using default value");
-                return Config {
+                Config {
                     host: args[2].clone(),
-                    port: port,
-                };
+                    port,
+                }
             }
             3 => {
-                return Config {
+                Config {
                     host: args[2].clone(),
                     port: args[3].clone(),
-                };
+                }
             }
             _ => {
                 panic!("Too many arguments provided");

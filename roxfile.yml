@@ -12,3 +12,7 @@ tasks:
   - name: "dr"
     description: "Run the Docker container"
     command: "docker run --rm -p 8080:8080 rustserver"
+
+  - name: "clip"
+    description: "Run Clippy"
+    command: "cargo clippy"

@@ -17,12 +17,12 @@ impl Database {
             data: Mutex::new(HashMap::new()),
             path: DB_PATH.to_string(),
         };
-        db.from_file();
+        db.load_file();
         db
     }
 
     // Read the database from disk
-    fn from_file(&self) {
+    fn load_file(&self) {
         println!("(Reading database from file: '{}')", &self.path);
         if !std::path::Path::new(&self.path).exists() {
             std::fs::File::create(&self.path).expect("Failed to create database file!");
