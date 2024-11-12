@@ -15,7 +15,7 @@ Educational implementation of an HTTP webserver in Rust
 * Tests
 * Proper Error Handling (unwraps all around)
 * Multi-Threading
-* Graceful Shutdowns
+* Graceful Shutdowns (at least the DB gets written to disk on each request)
 * Proper Logging (only `println!` here)
 
 ## Server Logs
